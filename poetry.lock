@@ -1105,13 +1105,13 @@ pyreadline3 = {version = "*", markers = "sys_platform == \"win32\" and python_ve
 
 [[package]]
 name = "humanloop"
-version = "0.8.0b6"
+version = "0.8.0b11"
 description = ""
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "humanloop-0.8.0b6-py3-none-any.whl", hash = "sha256:bbf27a16813099ac4c829c934035b1a2fb34dc29880c608a55d8d190055b8976"},
-    {file = "humanloop-0.8.0b6.tar.gz", hash = "sha256:5d244d8301cde7efc17ea5f2c23f153359ee97762d4088281f0d221242ab0cd9"},
+    {file = "humanloop-0.8.0b11-py3-none-any.whl", hash = "sha256:4ef79f4a7aa66c0dec9f7a8c6a859665a7005855f989cb25746561d5085b6c5c"},
+    {file = "humanloop-0.8.0b11.tar.gz", hash = "sha256:5ec640b31b8e8f44eb965b27e64e258b815434689f22fd4b0e3b7958c254e859"},
 ]
 
 [package.dependencies]
@@ -4394,4 +4394,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "80fac1e12b2fd73f2ef169db80fa3e0cc58ffcbcac44d2533712ea353139eafd"
+content-hash = "019c27becc6b0173461cb8a466f8024e454dcebc16dc40509d91f497b305834d"
