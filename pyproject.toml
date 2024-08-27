@@ -14,7 +14,6 @@ humanloop = "0.8.0b11"
 pandas = "^2.2.2"
 pyarrow = "^17.0.0"
 
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
