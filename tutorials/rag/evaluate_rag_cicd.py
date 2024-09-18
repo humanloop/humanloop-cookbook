@@ -5,7 +5,7 @@ Prompt and Tool definitions are managed in code (alternatively they can be manag
 on Humanloop, which lies outside the scope of this script).
 
 This script assumes that you have a Flow, a Dataset and Evaluators already
-managed on Humanloop. You can follow the evaluate_rag_flow_cicd.py notebook to
+managed on Humanloop. You can follow the evaluate-rag-flow.py notebook to
 set these up.
 
 We will use the `ask_question` pipeline as a simple AI application we wish to evaluate.
@@ -148,7 +148,7 @@ def run_evaluation(
 
     # Define the function to execute your pipeline in parallel and Log to Humanloop
     def process_datapoint(datapoint):
-        start_time = datetime.now().isoformat()
+        start_time = datetime.now()
         try:
             output = pipeline(
                 inputs=datapoint.inputs,
@@ -163,7 +163,7 @@ def run_evaluation(
                 evaluation_id=evaluation.id,
                 trace_status="complete",
                 start_time=start_time,
-                end_time=datetime.now().isoformat(),
+                end_time=datetime.now(),
             )
 
         except Exception as error:
@@ -178,7 +178,7 @@ def run_evaluation(
                 evaluation_id=evaluation.id,
                 trace_status="complete",
                 start_time=start_time,
-                end_time=datetime.now().isoformat(),
+                end_time=datetime.now(),
             )
 
     # Execute your pipeline and send the logs to Humanloop in parallel
