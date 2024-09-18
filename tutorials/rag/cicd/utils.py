@@ -1,10 +1,9 @@
 """ Util methods for formatting and checking Evaluation results."""
 
 from prettytable import PrettyTable
-from datetime import datetime
-from humanloop import EvaluationResponse, EvaluationStats, VersionStats
-from humanloop import BooleanEvaluatorVersionStats as BooleanStats
-from humanloop import NumericEvaluatorVersionStats as NumericStats
+from humanloop import EvaluationResponse, EvaluationStats, VersionStatsResponse
+from humanloop import BooleanEvaluatorStatsResponse as BooleanStats
+from humanloop import NumericEvaluatorStatsResponse as NumericStats
 
 # ANSI escape codes for colors
 YELLOW = "\033[93m"
@@ -28,70 +27,23 @@ def populate_template(template: list, inputs: dict[str, str]) -> list:
 
 def get_score_from_evaluator_stat(stat: NumericStats | BooleanStats) -> float | None:
     """Get the score from an Evaluator Stat."""
+    score = None
     match stat:
         case BooleanStats():
-            score = round(stat.num_true / stat.total_logs, 2)
+            if stat.total_logs:
+                score = round(stat.num_true / stat.total_logs, 2)
         case NumericStats():
             score = round(stat.mean, 2)
         case _:
             raise ValueError("Invalid Evaluator Stat type.")
+
     return score
-
-
-def print_evaluation_results(
-        evaluation: EvaluationResponse, stats: EvaluationStats
-) -> None:
-    """Pretty prints a table of stats for a given Evaluation."""
-
-    evaluators_by_id = {
-        evaluator.version.version_id: evaluator for evaluator in evaluation.evaluators
-    }
-    versions_by_id = {
-        evaluatee.version["version_id"]: evaluatee
-        for evaluatee in evaluation.evaluatees
-    }
-    sorted_stats = sorted(
-        stats.version_stats,
-        key=lambda x: versions_by_id[x.version_id].version["created_at"]
-    )
-    version_ids = [stat.version_id for stat in sorted_stats]
-    evaluator_ids = [evaluator.version.version_id for evaluator in evaluation.evaluators]
-
-    # Table of evaluator X versions
-    table = PrettyTable()
-    table.field_names = ["Version id"] + version_ids
-    table.align["Version id"] = "r"
-    table.add_row(["Created", *[versions_by_id[stat.version_id].version["created_at"].split('.')[0] for stat in sorted_stats]])
-    table.add_row(["Model", *[versions_by_id[stat.version_id].version["model"] for stat in sorted_stats]], divider=True)
-    table.add_row(["Evaluators", *["" for _ in sorted_stats]], divider=True)
-
-    data = {
-        evaluator_id: {stat.version_id: None for stat in sorted_stats}
-        for evaluator_id in evaluator_ids
-    }
-    for stat in sorted_stats:
-        version = versions_by_id[stat.version_id]
-        for evaluator_stat in stat.evaluator_version_stats:
-            evaluator = evaluators_by_id[evaluator_stat.evaluator_version_id]
-            score = get_score_from_evaluator_stat(stat=evaluator_stat)
-            data[evaluator.version.version_id][version.version["version_id"]] = score
-
-    for evaluator_id in evaluator_ids:
-        evaluator = evaluators_by_id[evaluator_id]
-        row = [evaluator.version.path]  # Start with the evaluator name/path
-        for version_id in version_ids:
-            score = data[evaluator_id][version_id]
-            row.append(score if score is not None else "N/A")
-        table.add_row(row)
-
-    print(f"\n{CYAN}📊 Evaluation Results for {version.version['path']} {RESET}")
-    print(table, "\n\n")
 
 
 def get_sorted_version_stats(
     stats: EvaluationStats,
     evaluation: EvaluationResponse
-) -> list[VersionStats]:
+) -> list[VersionStatsResponse]:
     """Sort the VersionStats by created_at."""
     versions_by_id = {
         evaluatee.version["version_id"]: evaluatee
@@ -108,7 +60,7 @@ def get_sorted_version_stats(
 
 
 def get_evaluator_stats_by_path(
-    stat: VersionStats, evaluation: EvaluationResponse
+    stat: VersionStatsResponse, evaluation: EvaluationResponse
 ) -> dict[str, NumericStats | BooleanStats]:
     """Get the Evaluator stats by path."""
     evaluators_by_id = {
@@ -192,16 +144,3 @@ def check_evaluation_improvement(
             return False
     else:
         raise ValueError(f"Evaluator {evaluator_path} not found in the stats.")
-
-
-def print_evaluation_progress(
-        evaluation: EvaluationResponse,
-        stats: EvaluationStats
-) -> None:
-    """Prints the progress of an Evaluation Logs and Evaluators"""
-
-    num_evaluators = len(evaluation.evaluators)
-    num_versions = len(evaluation.evaluatees)
-    print(f"\n{CYAN}⏳ Evaluation Progress{RESET}")
-    print(f"Total Logs: {stats.overall_stats.total_logs}/{num_versions*stats.overall_stats.num_datapoints}")
-    print(f"Total Judgments: {stats.overall_stats.total_evaluator_logs}/{num_evaluators*num_versions*stats.overall_stats.num_datapoints}\n\n")
