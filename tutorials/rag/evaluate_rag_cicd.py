@@ -36,7 +36,7 @@ import time
 load_dotenv()
 chroma = chromadb.Client()
 openai = OpenAI(api_key=os.getenv("OPENAI_KEY"))
-humanloop = Humanloop(api_key=os.getenv("HUMANLOOP_KEY"), base_url="http://0.0.0.0/v5")
+humanloop = Humanloop(api_key=os.getenv("HUMANLOOP_KEY"))
 collection = chroma.get_or_create_collection(name="MedQA")
 knowledge_base = pd.read_parquet("../../assets/sources/textbooks.parquet")
 knowledge_base = knowledge_base.sample(10, random_state=42)
