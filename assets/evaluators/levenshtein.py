@@ -81,14 +81,12 @@ def levenshtein_distance_optimized(s1, s2, max_distance=1000):
     return min(distance[-1], max_distance)
 
 
-def extract_answer(log):
+def extract_answer(generation: str):
     """Extracts answer from generation.
 
     Handles a generation that if separated by "---" with the answer being the first part.
     Also handles a generation that starts with "```\n" and removes it.
     """
-    generation = log["output"]
-
     answer = generation.split("---")[0].strip()
     if answer.startswith("```\n"):
         answer = answer[4:].strip()
@@ -98,4 +96,4 @@ def extract_answer(log):
 
 def compare_log_and_target(log, testcase):
     target = testcase["target"]["output"]
-    return levenshtein_distance_optimized(target, extract_answer(log))
+    return levenshtein_distance_optimized(target, extract_answer(log["output"]))
