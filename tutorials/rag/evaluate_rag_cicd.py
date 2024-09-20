@@ -36,7 +36,7 @@ import time
 load_dotenv()
 chroma = chromadb.Client()
 openai = OpenAI(api_key=os.getenv("OPENAI_KEY"))
-humanloop = Humanloop(api_key=os.getenv("HUMANLOOP_KEY"))
+humanloop = Humanloop(api_key=os.getenv("HUMANLOOP_KEY"), base_url="https://neostaging.humanloop.ml/v5")
 collection = chroma.get_or_create_collection(name="MedQA")
 knowledge_base = pd.read_parquet("../../assets/sources/textbooks.parquet")
 knowledge_base = knowledge_base.sample(10, random_state=42)
@@ -46,7 +46,7 @@ collection.add(
 )
 
 # Define your Prompt details in code
-model = "gpt-4-turbo"
+model = "gpt-4o-mini"
 temperature = 0
 template = [
     {
@@ -123,7 +123,7 @@ def run_evaluation(
     flow_id: str,
     evaluation_id: str,
     attributes: dict,
-    max_workers: int = 5,
+    max_workers: int = 3,
 ) -> bool:
     """Run your pipeline for a Humanloop Evaluation.
 
