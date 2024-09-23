@@ -198,7 +198,16 @@ def run_evaluation(
     while not complete:
         stats = humanloop.evaluations.get_stats(id=evaluation.id)
         print(stats.progress)
-        complete = stats.status == "completed"
+        run_stats = next(v for v in stats.version_stats if v.batch_id == run_id)
+        num_logs = run_stats.num_logs
+        print(f"Logs received by Humanloop: {num_logs}/{len(dataset.datapoints)}")
+        evaluator_logs = sum(s.total_logs for s in run_stats.evaluator_version_stats)
+        print(
+            f"Evaluator Logs: {evaluator_logs}/{len(dataset.datapoints) * len(evaluation.evaluators)}"
+        )
+        complete = num_logs == len(dataset.datapoints) and evaluator_logs == len(
+            dataset.datapoints
+        ) * len(evaluation.evaluators)
         if not complete:
             time.sleep(10)
 
