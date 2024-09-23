@@ -138,6 +138,7 @@ def run_evaluation(
 
     This function will print the progress of the Evaluation and the final results.
     """
+    run_id = uuid.uuid4().hex[:6]
 
     # Pull down your dataset
     evaluation = humanloop.evaluations.get(id=evaluation_id)
@@ -164,6 +165,7 @@ def run_evaluation(
                 trace_status="complete",
                 start_time=start_time,
                 end_time=datetime.now(),
+                batches=[run_id],
             )
 
         except Exception as error:
@@ -179,6 +181,7 @@ def run_evaluation(
                 trace_status="complete",
                 start_time=start_time,
                 end_time=datetime.now(),
+                batches=[run_id],
             )
 
     # Execute your pipeline and send the logs to Humanloop in parallel
