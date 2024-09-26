@@ -36,7 +36,7 @@ import time
 load_dotenv()
 chroma = chromadb.Client()
 openai = OpenAI(api_key=os.getenv("OPENAI_KEY"))
-humanloop = Humanloop(api_key=os.getenv("HUMANLOOP_KEY"), base_url="http://0.0.0.0/v5")
+humanloop = Humanloop(api_key=os.getenv("HUMANLOOP_KEY"))
 collection = chroma.get_or_create_collection(name="MedQA")
 knowledge_base = pd.read_parquet("../../assets/sources/textbooks.parquet")
 knowledge_base = knowledge_base.sample(10, random_state=42)
@@ -145,6 +145,8 @@ def run_evaluation(
         id=evaluation.dataset.id,
         include_datapoints=True,
     )
+    # Add a batch ID for this run so that you get a new column in report, even if your pipeline is the same
+    batch_id = uuid.uuid4().hex
 
     # Define the function to execute your pipeline in parallel and Log to Humanloop
     def process_datapoint(datapoint):
@@ -154,7 +156,6 @@ def run_evaluation(
                 inputs=datapoint.inputs,
             )
             _ = humanloop.flows.log(
-                trace_id=uuid.uuid4().hex,
                 id=flow_id,
                 flow={"attributes": attributes},
                 inputs=datapoint.inputs,
@@ -164,12 +165,12 @@ def run_evaluation(
                 trace_status="complete",
                 start_time=start_time,
                 end_time=datetime.now(),
+                batch_id=batch_id,
             )
 
         except Exception as error:
             # If it fails, still post the log to Humanloop
             _ = humanloop.flows.log(
-                trace_id=uuid.uuid4().hex,
                 id=flow_id,
                 flow={"attributes": attributes},
                 inputs=datapoint.inputs,
@@ -179,6 +180,7 @@ def run_evaluation(
                 trace_status="complete",
                 start_time=start_time,
                 end_time=datetime.now(),
+                batch_id=batch_id,
             )
 
     # Execute your pipeline and send the logs to Humanloop in parallel
