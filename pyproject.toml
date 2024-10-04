@@ -14,6 +14,7 @@ humanloop = "0.8.0b13"
 pandas = "^2.2.2"
 pyarrow = "^17.0.0"
 prettytable = "^3.11.0"
+python-dotenv = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core"]
