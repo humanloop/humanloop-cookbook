@@ -17,7 +17,6 @@ import argparse
 import os
 from dotenv import load_dotenv
 import inspect
-import uuid
 import pandas as pd
 from chromadb import chromadb
 from openai import OpenAI
@@ -46,7 +45,7 @@ collection.add(
 )
 
 # Define your Prompt details in code
-model = "gpt-4-turbo"
+model = "gpt-4o-mini"
 temperature = 0
 template = [
     {
@@ -122,6 +121,7 @@ def run_evaluation(
     pipeline: Callable,
     flow_id: str,
     evaluation_id: str,
+    dataset_id: str,
     attributes: dict,
     max_workers: int = 5,
 ) -> bool:
@@ -142,11 +142,15 @@ def run_evaluation(
     # Pull down your dataset
     evaluation = humanloop.evaluations.get(id=evaluation_id)
     dataset = humanloop.datasets.get(
-        id=evaluation.dataset.id,
+        id=dataset_id,
         include_datapoints=True,
     )
     # Add a batch ID for this run so that you get a new column in report, even if your pipeline is the same
-    batch_id = uuid.uuid4().hex
+    run = humanloop.evaluations.create_run(
+        id=evaluation_id,
+        dataset={"file_id": dataset_id},
+    )
+    run_id = run.id
 
     # Define the function to execute your pipeline in parallel and Log to Humanloop
     def process_datapoint(datapoint):
@@ -161,11 +165,10 @@ def run_evaluation(
                 inputs=datapoint.inputs,
                 output=output,
                 source_datapoint_id=datapoint.id,
-                evaluation_id=evaluation.id,
+                run_id=run.id,
                 trace_status="complete",
                 start_time=start_time,
                 end_time=datetime.now(),
-                batch_id=batch_id,
             )
 
         except Exception as error:
@@ -176,11 +179,10 @@ def run_evaluation(
                 inputs=datapoint.inputs,
                 error=str(error),
                 source_datapoint_id=datapoint.id,
-                evaluation_id=evaluation.id,
+                run_id=run_id,
                 trace_status="complete",
                 start_time=start_time,
                 end_time=datetime.now(),
-                batch_id=batch_id,
             )
 
     # Execute your pipeline and send the logs to Humanloop in parallel
@@ -197,9 +199,11 @@ def run_evaluation(
     while not complete:
         stats = humanloop.evaluations.get_stats(id=evaluation.id)
         print(stats.progress)
-        complete = stats.status == "completed"
+        run_stats = next((run for run in stats.run_stats if run.run_id == run_id), None)
+        complete = run_stats and run_stats.status == "completed"
         if not complete:
             time.sleep(10)
+    assert stats is not None
 
     # Print Evaluation results
     print(stats.report)
@@ -234,8 +238,14 @@ if __name__ == "__main__":
         type=str,
         help="Evaluation ID for the run. If not specified, a new one will be created.",
     )
+    parser.add_argument(
+        "--dataset_id",
+        type=str,
+        help="Dataset ID for the run.",
+    )
     args = parser.parse_args()
     evaluation_id = args.evaluation_id
+    dataset_id = args.dataset_id
 
     # These attributes should represent the configuration of your pipeline
     attributes = {
@@ -264,7 +274,6 @@ if __name__ == "__main__":
             # NB: you can use `path`or `id` for references on Humanloop
             file={"id": flow.id},
             # Assume Evaluators and Datasets already exist
-            dataset={"path": "evals_demo/medqa-test"},
             evaluators=[
                 {"path": "evals_demo/exact_match"},
                 {"path": "evals_demo/levenshtein"},
@@ -279,6 +288,7 @@ if __name__ == "__main__":
         pipeline=ask_question,
         flow_id=flow.id,
         evaluation_id=evaluation_id,
+        dataset_id=dataset_id,
         # attributes specify what version of the pipeline is being evaluated
         attributes=attributes,
     )
