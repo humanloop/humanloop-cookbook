@@ -11,6 +11,7 @@ from openai import OpenAI
 load_dotenv()
 
 
+
 TOPICS = ["math", "science"]
 TONE = "groovy 80s surfer dude"
 LLM_HYPERPARAMETERS = {
@@ -29,10 +30,11 @@ PROMPT_TEMPLATE = (
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-hl_client = Humanloop(api_key=os.getenv("HL_API_KEY"))
+# hl_client = Humanloop(api_key=os.getenv("HUMANLOOP_API_KEY"), base_url="https://neostaging.humanloop.ml/v5")
+hl_client = Humanloop(api_key=os.getenv("HUMANLOOP_API_KEY"))
 
 
-@hl_client.tool(path="SDK_Agent_Example_Decorators/Calculator")
+@hl_client.tool(path="Decorators Tutorial/Calculator")
 def calculator(operation: str, num1: int, num2: int) -> str:
     """Do arithmetic operations on two numbers."""
     if operation == "add":
@@ -47,14 +49,14 @@ def calculator(operation: str, num1: int, num2: int) -> str:
         raise NotImplementedError("Invalid operation")
 
 
-@hl_client.tool(path="SDK_Agent_Example_Decorators/Random Number")
+@hl_client.tool(path="Decorators Tutorial/Random Number")
 def pick_random_number():
     """Pick a random number between 1 and 100."""
     return random.randint(1, 100)
 
 
 @hl_client.prompt(
-    path="SDK_Agent_Example_Decorators/Agent Prompt",
+    path="Decorators Tutorial/Agent Prompt",
     template=PROMPT_TEMPLATE,
 )
 def call_agent(messages: list[str]) -> str:
@@ -93,7 +95,7 @@ def call_agent(messages: list[str]) -> str:
     return output.choices[0].message.content
 
 
-@hl_client.flow(path="SDK_Agent_Example_Decorators/Agent Flow")
+@hl_client.flow(path="Decorators Tutorial/Agent Flow")
 def agent_chat_workflow():
     messages = [
         {
