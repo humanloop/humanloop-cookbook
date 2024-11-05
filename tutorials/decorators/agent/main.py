@@ -1,4 +1,9 @@
-"""This script demonstrates using the SDK decorators to instrument a simple conversational agent with function calling."""
+"""This script demonstrates instrumenting a simple conversational agent with function calling.
+
+The example uses the Humanloop SDK to declare Files in code.
+
+Type 'exit' to end the conversation.
+"""
 
 import json
 import os
@@ -56,12 +61,19 @@ def pick_random_number():
 @hl_client.prompt(
     path="SDK_Agent_Example_Decorators/Agent Prompt",
     template=PROMPT_TEMPLATE,
+    tools=[
+        pick_random_number.json_schema,
+        calculator.json_schema,
+    ],
 )
-def call_agent(messages: list[str]) -> str:
+def call_agent(
+    messages: list[str],
+) -> str:
     output = client.chat.completions.create(
         model="gpt-4o",
         messages=messages,
-        # Use .json_schema property on decorated functions to easily access the definition for function calls
+        # Use .json_schema property on decorated functions to easily access
+        # the definition for function calls
         tools=[
             {
                 "type": "function",
@@ -88,7 +100,7 @@ def call_agent(messages: list[str]) -> str:
             else:
                 raise NotImplementedError("Invalid tool call")
 
-            return result
+            return f"[TOOL CALL] {result}"
 
     return output.choices[0].message.content
 
@@ -98,7 +110,10 @@ def agent_chat_workflow():
     messages = [
         {
             "role": "system",
-            "content": PROMPT_TEMPLATE.format(topics=" ".join(TOPICS), tone=TONE),
+            "content": PROMPT_TEMPLATE.format(
+                topics=" ".join(TOPICS),
+                tone=TONE,
+            ),
         },
     ]
     input_output_pairs = []
