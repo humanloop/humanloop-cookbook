@@ -1117,13 +1117,13 @@ pyreadline3 = {version = "*", markers = "sys_platform == \"win32\" and python_ve
 
 [[package]]
 name = "humanloop"
-version = "0.8.2"
+version = "0.8.13"
 description = ""
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "humanloop-0.8.2-py3-none-any.whl", hash = "sha256:6feb8c56cd5112481b444126c64b27730a652fa16140adadb26e9c385d42384b"},
-    {file = "humanloop-0.8.2.tar.gz", hash = "sha256:73446aa2eeb9cdd31166c8a5edcfbd09cbddcca7b4be1760dd15a8e87b4741d9"},
+    {file = "humanloop-0.8.13-py3-none-any.whl", hash = "sha256:d2584211f18af9d0b1ad1e0e34e3b235363730a022df08f25d906d54d835fb73"},
+    {file = "humanloop-0.8.13.tar.gz", hash = "sha256:3e34228b7e0c0b4cb4fb1dadee3a34bf7b369e9f57313fb17856bd6b4713860b"},
 ]
 
 [package.dependencies]
@@ -4386,4 +4386,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "9588cdb7a87397f1593d2393713339e1e5b88cbaf60b811527132f16bac82a48"
+content-hash = "7fb656d25eb805de78c13f158f629274d44089a58c1fd95857c0ac9fa0f092b4"
