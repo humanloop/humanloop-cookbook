@@ -34,7 +34,10 @@ PROMPT_TEMPLATE = (
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-hl_client = Humanloop(api_key=os.getenv("HL_API_KEY"))
+hl_client = Humanloop(
+    api_key=os.getenv("HL_API_KEY"),
+    base_url="http://0.0.0.0:80/v5",
+)
 
 
 @hl_client.tool(path="SDK_Agent_Example_Decorators/Calculator")
