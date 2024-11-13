@@ -13,8 +13,9 @@ openai = "^1.42.0"
 pandas = "^2.2.2"
 pyarrow = "^17.0.0"
 prettytable = "^3.11.0"
-humanloop = {path = "/Users/andreibratu/Desktop/humanloop-python", develop = true}
 python-dotenv = "^1.0.1"
+humanloop = {path = "/Users/andreibratu/Desktop/humanloop-python", develop = true}
+protobuf = "<=3.20"
 
 [build-system]
 requires = ["poetry-core"]

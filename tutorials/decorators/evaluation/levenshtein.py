@@ -95,5 +95,5 @@ def extract_answer(generation: str):
 
 
 def compare_log_and_target(log, testcase):
-    target = testcase["output"]
+    target = testcase["target"]["output"]
     return levenshtein_distance_optimized(target, extract_answer(log["output"]))

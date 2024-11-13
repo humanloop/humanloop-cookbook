@@ -12,5 +12,5 @@ def extract_answer(generation: str):
 
 
 def exact_match(log, testcase):
-    target = testcase["output"]
+    target = testcase["target"]["output"]
     return target == extract_answer(log["output"])
