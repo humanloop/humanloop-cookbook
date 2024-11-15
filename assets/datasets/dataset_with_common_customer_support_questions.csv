@@ -1,0 +1,101 @@
+chunk, messages, tone, sample_answer
+1,"[{""role"": ""user"", ""content"": ""How can I reset my password?""}]",friendly,You can reset your password by clicking on 'Forgot Password' at the login screen and following the instructions.
+1,"[{""role"": ""user"", ""content"": ""Where can I find my purchase history?""}]",friendly,To see your purchase history, log into your account and navigate to the 'Order History' section under 'My Account'.
+1,"[{""role"": ""user"", ""content"": ""Can I change my delivery address after placing an order?""}]",friendly,If your order hasn't shipped yet, you can change the delivery address from your account settings.
+1,"[{""role"": ""user"", ""content"": ""What payment methods do you accept?""}]",friendly,We accept credit/debit cards, PayPal, and other major payment methods.
+1,"[{""role"": ""user"", ""content"": ""How do I track my order?""}]",friendly,Once your order is shipped, you will receive a tracking number via email which you can use to track your order.
+1,"[{""role"": ""user"", ""content"": ""My order was damaged upon arrival, what should I do?""}]",friendly,We're sorry to hear that! Please contact our support team for a replacement or refund.
+1,"[{""role"": ""user"", ""content"": ""How do I return a product?""}]",friendly,To return a product, please initiate a return through your account and follow the instructions provided.
+1,"[{""role"": ""user"", ""content"": ""What is your refund policy?""}]",friendly,We offer a full refund for returns made within 30 days of purchase, provided the item is in original condition.
+1,"[{""role"": ""user"", ""content"": ""Can I cancel my subscription?""}]",friendly,Yes, you can cancel your subscription at any time through your account settings.
+1,"[{""role"": ""user"", ""content"": ""Do you offer gift cards?""}]",friendly,Yes, we offer gift cards in various denominations which can be purchased on our website.
+2,"[{""role"": ""user"", ""content"": ""What are your customer service hours?""}]",friendly,Our customer service is available 24/7 to assist you with any inquiries.
+2,"[{""role"": ""user"", ""content"": ""Do you have a mobile app?""}]",friendly,Yes, we have a mobile app available for both iOS and Android.
+2,"[{""role"": ""user"", ""content"": ""How long does shipping usually take?""}]",friendly,Shipping typically takes between 3-5 business days, but this can vary depending on your location.
+2,"[{""role"": ""user"", ""content"": ""What should I do if I forget my username?""}]",friendly,If you forget your username, please click on 'Forgot Username' on the login page to retrieve it.
+2,"[{""role"": ""user"", ""content"": ""Can I update my email address on my account?""}]",friendly,Yes, you can update your email address by going to your account settings.
+2,"[{""role"": ""user"", ""content"": ""How do I apply a promo code to my order?""}]",friendly,You can apply a promo code during the checkout process under 'Promo Code' section.
+2,"[{""role"": ""user"", ""content"": ""Is there a loyalty program?""}]",friendly,Yes, we offer a loyalty program that gives you points for every purchase.
+2,"[{""role"": ""user"", ""content"": ""Where can I find the user manual?""}]",friendly,User manuals can be found on the product page under 'Manuals and Support'.
+2,"[{""role"": ""user"", ""content"": ""How can I contact technical support?""}]",friendly,Technical support can be reached via chat, email, or by calling our support line.
+2,"[{""role"": ""user"", ""content"": ""What browsers are supported by your website?""}]",friendly,Our website supports the latest versions of Chrome, Firefox, Safari, and Edge.
+3,"[{""role"": ""user"", ""content"": ""Can I schedule a delivery time for my order?""}]",friendly,We offer scheduled delivery in select areas, please check availability at checkout.
+3,"[{""role"": ""user"", ""content"": ""Is your website secure?""}]",friendly,Yes, our website uses industry-standard encryption to ensure your personal information is secure.
+3,"[{""role"": ""user"", ""content"": ""What if the item I want is out of stock?""}]",friendly,You can sign up for an email alert to be notified when the item is back in stock.
+3,"[{""role"": ""user"", ""content"": ""How do I unsubscribe from newsletters?""}]",friendly,To unsubscribe, click on the 'Unsubscribe' link found at the bottom of our newsletters.
+3,"[{""role"": ""user"", ""content"": ""Why was my credit card declined?""}]",friendly,There could be several reasons for this. Please check with your bank for more information.
+3,"[{""role"": ""user"", ""content"": ""Can I sell products on your website?""}]",friendly,We're currently not accepting third-party sellers but keep an eye on our announcements for any changes.
+3,"[{""role"": ""user"", ""content"": ""How can I join your affiliate program?""}]",friendly,To join our affiliate program, please visit the 'Affiliates' section on our website and fill out the application form.
+3,"[{""role"": ""user"", ""content"": ""What is the warranty on your products?""}]",friendly,Most products come with a one-year warranty. Check the product page for specific details.
+3,"[{""role"": ""user"", ""content"": ""How do I edit my billing information?""}]",friendly,To edit your billing information, go to 'Payment Methods' under 'Account Settings'.
+3,"[{""role"": ""user"", ""content"": ""What is your privacy policy?""}]",friendly,Our privacy policy is available at the bottom of our website under 'Privacy Policy' link.
+4,"[{""role"": ""user"", ""content"": ""Why can't I log into my account?""}]",friendly,Please ensure your username and password are correct. If you're still having trouble, try resetting your password.
+4,"[{""role"": ""user"", ""content"": ""Does your site have an accessibility feature?""}]",friendly,Yes, we strive to make our website accessible to everyone. You can find accessibility options in the footer area.
+4,"[{""role"": ""user"", ""content"": ""How do I add items to a wishlist?""}]",friendly,To add items to your wishlist, click on the 'Add to Wishlist' button on the product page.
+4,"[{""role"": ""user"", ""content"": ""Do you offer discounts for students?""}]",friendly,Yes, we offer student discounts. You'll need to verify your student status through our website.
+4,"[{""role"": ""user"", ""content"": ""What's the difference between your subscription plans?""}]",friendly,Our subscription plans vary by features and access levels. Please visit our subscription page for more details.
+4,"[{""role"": ""user"", ""content"": ""What's the difference between your subscription plans?""}]",friendly,Our subscription plans vary by features and access levels. Please visit our 'Subscriptions' page for detailed information and comparisons.
+4,"[{""role"": ""user"", ""content"": ""What happens if a package gets lost during shipping?""}]",friendly,If your package is lost during shipping, please contact our customer service team for assistance with tracking or replacing your item.
+4,"[{""role"": ""user"", ""content"": ""Do you have seasonal promotions?""}]",friendly,Yes, we offer seasonal promotions. Keep an eye on our website or subscribe to our newsletter for updates.
+4,"[{""role"": ""user"", ""content"": ""How do I create an account on your website?""}]",friendly,To create an account, click on 'Sign Up' at the top of our homepage and fill in the required information.
+4,"[{""role"": ""user"", ""content"": ""Can I choose a different currency for my purchases?""}]",friendly,Yes, you can choose your preferred currency from the currency selector at the top right corner of our website.
+5,"[{""role"": ""user"", ""content"": ""How do you handle data breaches?""}]",friendly,We take data security very seriously and have protocols in place to respond to any breaches to protect your information.
+5,"[{""role"": ""user"", ""content"": ""How do I become a VIP member?""}]",friendly,You can become a VIP member by exceeding a certain purchase amount within a year. More details can be found on our 'VIP Membership' page.
+5,"[{""role"": ""user"", ""content"": ""Can I view your site in a different language?""}]",friendly,Yes, you can change the language by clicking on the language selector at the bottom of the page.
+5,"[{""role"": ""user"", ""content"": ""Do you sell internationally?""}]",friendly,Yes, we ship to many countries around the world. You can check our shipping information page for more details.
+5,"[{""role"": ""user"", ""content"": ""Why was I charged twice for my order?""}]",friendly,There may be a temporary hold on your payment method. Please contact your bank for clarification and our support team if the issue persists.
+5,"[{""role"": ""user"", ""content"": ""What do I do if I receive the wrong item?""}]",friendly,We apologize for the mistake! Please contact our customer service, and we will arrange for the correct item to be sent to you.
+5,"[{""role"": ""user"", ""content"": ""Are there any hidden fees at checkout?""}]",friendly,We strive for transparency, and all applicable taxes and fees are displayed during the checkout process.
+5,"[{""role"": ""user"", ""content"": ""Can I buy bulk orders or customized items?""}]",friendly,Yes, we offer bulk purchasing options and customizations for certain products. Please contact sales for more information.
+5,"[{""role"": ""user"", ""content"": ""What if I entered the wrong shipping address?""}]",friendly,If your order hasn't been shipped, you can change the address in your account settings. Otherwise, please contact support immediately for assistance.
+5,"[{""role"": ""user"", ""content"": ""How do I view my account balance or store credits?""}]",friendly,To view your account balance or store credits, log into your account and go to the 'My Wallet' section.
+6,"[{""role"": ""user"", ""content"": ""Can I pause my subscription?""}]",friendly,Yes, you can pause your subscription. Just go to your account settings and select the pause option.
+6,"[{""role"": ""user"", ""content"": ""Do you offer price matching with competitors?""}]",friendly,We strive to offer competitive pricing but do not currently offer a price match with competitors.
+6,"[{""role"": ""user"", ""content"": ""How do I know if an item is eligible for free shipping?""}]",friendly,Items eligible for free shipping will be marked accordingly on the product page.
+6,"[{""role"": ""user"", ""content"": ""How do I verify my email address?""}]",friendly,After signing up, you'll receive an email verification link. Click on that link to verify your email address.
+6,"[{""role"": ""user"", ""content"": ""Can I pay using multiple payment methods?""}]",friendly,Currently, we only accept one payment method per transaction.
+6,"[{""role"": ""user"", ""content"": ""Have you improved your sustainability practices?""}]",friendly,We continuously strive toward sustainability by reducing packaging waste and sourcing sustainable materials.
+6,"[{""role"": ""user"", ""content"": ""How do I provide feedback about my shopping experience?""}]",friendly,We welcome your feedback! Please visit our 'Contact Us' page to submit your comments or suggestions.
+6,"[{""role"": ""user"", ""content"": ""Is there a way to personalize my account settings?""}]",friendly,Yes, you can personalize your settings by navigating to the 'Account Settings' page after logging in.
+6,"[{""role"": ""user"", ""content"": ""Do you have a list of all your policies?""}]",friendly,Yes, all of our policies can be found in the 'Policies' section at the bottom of our website.
+6,"[{""role"": ""user"", ""content"": ""Is technical support available on weekends?""}]",friendly,Yes, our technical support team is available every day, including weekends.
+7,"[{""role"": ""user"", ""content"": ""Can I order a replacement part?""}]",friendly,Yes, replacement parts can be ordered through our website or by contacting customer service.
+7,"[{""role"": ""user"", ""content"": ""What are the benefits of signing up for your newsletter?""}]",friendly,Our newsletter provides updates on new products, exclusive offers, and upcoming sales.
+7,"[{""role"": ""user"", ""content"": ""How do I change my profile picture?""}]",friendly,To change your profile picture, go to 'Account Settings', then click on 'Edit Profile'.
+7,"[{""role"": ""user"", ""content"": ""Can I upgrade my shipping method after placing an order?""}]",friendly,You can upgrade your shipping method if your order hasn't been shipped. Contact support to make the change.
+7,"[{""role"": ""user"", ""content"": ""How are custom duties calculated for international orders?""}]",friendly,Custom duties vary by country and are the responsibility of the customer. Please contact local customs for more details.
+7,"[{""role"": ""user"", ""content"": ""Do you offer wholesale pricing?""}]",friendly,Yes, we offer wholesale pricing for eligible buyers. Please contact our sales department for more information.
+7,"[{""role"": ""user"", ""content"": ""How secure is my payment information?""}]",friendly,Your payment information is securely processed through encrypted gateways to ensure safety.
+7,"[{""role"": ""user"", ""content"": ""How do I earn rewards points?""}]",friendly,You earn points for every purchase made on our website, which can be redeemed for discounts on future orders.
+7,"[{""role"": ""user"", ""content"": ""Where can I view the terms and conditions?""}]",friendly,Our terms and conditions can be found at the bottom of our homepage through the link provided.
+7,"[{""role"": ""user"", ""content"": ""What is your policy on backorders?""}]",friendly,If an item is on backorder, we will notify you with an expected restock date. You can choose to wait or cancel your order.
+8,"[{""role"": ""user"", ""content"": ""What is your policy on backorders?""}]",friendly,If an item is on backorder, we will notify you with an expected restock date. You can choose to wait or cancel your order.
+8,"[{""role"": ""user"", ""content"": ""Can I get notified when a product is on sale?""}]",friendly,Yes, you can sign up for product notifications on the product page to receive alerts when it goes on sale.
+8,"[{""role"": ""user"", ""content"": ""How do I deactivate my account?""}]",friendly,To deactivate your account, please contact our customer service team who will assist you with the process.
+8,"[{""role"": ""user"", ""content"": ""What if I find a bug on your website?""}]",friendly,We appreciate your help in improving our site! Please report any issues through our 'Contact Us' page.
+8,"[{""role"": ""user"", ""content"": ""Can I view my past support chats?""}]",friendly,Yes, you can view the history of your support chats by logging into your account and checking the 'Support' section.
+8,"[{""role"": ""user"", ""content"": ""Are there exclusive products for members?""}]",friendly,Yes, our members have early access to certain products and exclusive member-only items.
+8,"[{""role"": ""user"", ""content"": ""How do I leave a review for a product?""}]",friendly,To leave a review, navigate to the product page and click on 'Write a Review'.
+8,"[{""role"": ""user"", ""content"": ""What accessibility features does your app offer?""}]",friendly,Our app offers features like screen reader support and adjustable text sizes to make the experience accessible for everyone.
+8,"[{""role"": ""user"", ""content"": ""How often does your product catalog get updated?""}]",friendly,Our product catalog is regularly updated with new arrivals and seasonal collections. Check back often to see what's new!
+8,"[{""role"": ""user"", ""content"": ""Do you have tutorials on using your products?""}]",friendly,Yes, tutorials and how-to guides can be found in the 'Support' section on our website.
+9,"[{""role"": ""user"", ""content"": ""How do I find out about upcoming sales?""}]",friendly,Sign up for our newsletter and follow us on social media to stay updated on upcoming sales and promotions.
+9,"[{""role"": ""user"", ""content"": ""What kind of notifications will I get if I sign up?""}]",friendly,You'll receive notifications about new products, sales events, order updates, and personalized offers.
+9,"[{""role"": ""user"", ""content"": ""Can I merge multiple accounts into one?""}]",friendly,Currently, accounts cannot be merged. If you need assistance, please contact support for guidance.
+9,"[{""role"": ""user"", ""content"": ""How do I update my shipping preferences?""}]",friendly,You can update your shipping preferences by going to your account settings under 'Shipping Information'.
+9,"[{""role"": ""user"", ""content"": ""What if I need to make a change to an order after it's shipped?""}]",friendly,Once an order has shipped, changes are limited. However, our support team can assist with returns or exchanges once you receive the order.
+9,"[{""role"": ""user"", ""content"": ""How long do I have to redeem my rewards points?""}]",friendly,Rewards points expire one year from the date of issue. Be sure to redeem them before then!
+9,"[{""role"": ""user"", ""content"": ""Where can I find your latest company news?""}]",friendly,Visit our 'News' section on our website for the latest updates and announcements from our company.
+9,"[{""role"": ""user"", ""content"": ""Are there any perks for social media influencers?""}]",friendly,We have an influencer program offering various perks for qualified influencers. Please contact our marketing team for more details.
+9,"[{""role"": ""user"", ""content"": ""How do I opt out of data collection?""}]",friendly,You can opt out of data collection by changing your privacy settings in your account or contacting our support team for assistance.
+9,"[{""role"": ""user"", ""content"": ""Do you offer in-store pickup options?""}]",friendly,Yes, we offer in-store pickup at select locations. Please choose the option during checkout if available.
+10,"[{""role"": ""user"", ""content"": ""Can I print my recent order invoice online?""}]",friendly,You can print your invoice by going to your account and selecting the order. There will be an option to print the invoice.
+10,"[{""role"": ""user"", ""content"": ""What benefits do I receive with a premium account?""}]",friendly,Our premium account holders receive benefits such as exclusive discounts, faster shipping, and priority customer support.
+10,"[{""role"": ""user"", ""content"": ""How can I participate in your feedback surveys?""}]",friendly,We occasionally invite members to participate in surveys. Keep an eye out for email invitations to join.
+10,"[{""role"": ""user"", ""content"": ""What should I do if I've been incorrectly charged?""}]",friendly,We apologize for any inconvenience. Please reach out to our billing support, and we'll resolve the issue promptly.
+10,"[{""role"": ""user"", ""content"": ""Can I suggest new products for your store?""}]",friendly,We welcome suggestions! Feel free to share your ideas through our 'Contact Us' page.
+10,"[{""role"": ""user"", ""content"": ""How to deal with custom taxes for international deliveries?""}]",friendly,Custom taxes are determined by your local regulations. You’ll be responsible for any additional fees upon delivery.
+10,"[{""role"": ""user"", ""content"": ""What happens if I miss a delivery?""}]",friendly,If you miss a delivery, the courier usually leaves a note with instructions on how to arrange for redelivery.
+10,"[{""role"": ""user"", ""content"": ""How do I check the status of my service ticket?""}]",friendly,Log into your account and navigate to the ‘Support’ section where you can track the status of your service tickets.
+10,"[{""role"": ""user"", ""content"": ""Are your products available in retail stores?""}]",friendly,Yes, select products are available in certain retail stores. Check our 'Store Locator' section for more information.
+10,"[{""role"": ""user"", ""content"": ""What should I do if my promo code doesn’t work?""}]",friendly,Please ensure the promo code is entered correctly and is still valid. Contact support if the problem persists.
