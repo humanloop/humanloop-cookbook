@@ -6,7 +6,7 @@ authors = ["Peter Hayes <ucabpnh@ucl.ac.uk>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<4"
 jupyter = "^1.0.0"
 chromadb = "^0.5.5"
 openai = "^1.42.0"
@@ -14,8 +14,8 @@ pandas = "^2.2.2"
 pyarrow = "^17.0.0"
 prettytable = "^3.11.0"
 python-dotenv = "^1.0.1"
-humanloop = {path = "/Users/andreibratu/Desktop/humanloop-python", develop = true}
 protobuf = "<=3.20"
+humanloop = "0.8.14b5"
 
 [build-system]
 requires = ["poetry-core"]

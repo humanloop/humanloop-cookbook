@@ -16,6 +16,11 @@ from openai import OpenAI
 load_dotenv()
 
 
+DIRECTORY = "SDK/Surfer Agent"
+if DIRECTORY_PREFIX := os.getenv("DIRECTORY_PREFIX"):
+    DIRECTORY = f"{DIRECTORY_PREFIX}/{DIRECTORY}"
+
+
 TOPICS = ["math", "science"]
 TONE = "groovy 80s surfer dude"
 LLM_HYPERPARAMETERS = {
@@ -34,10 +39,10 @@ PROMPT_TEMPLATE = (
 
 client = OpenAI(api_key=os.getenv("OPENAI_KEY"))
 
-hl_client = Humanloop(api_key=os.getenv("HUMANLOOP_KEY"))
+humanloop = Humanloop(api_key=os.getenv("HUMANLOOP_KEY"))
 
 
-@hl_client.tool(path="SDK_Agent_Example_Decorators/Calculator")
+@humanloop.tool(path=f"{DIRECTORY}/Calculator")
 def calculator(operation: str, num1: int, num2: int) -> str:
     """Do arithmetic operations on two numbers."""
     if operation == "add":
@@ -52,23 +57,21 @@ def calculator(operation: str, num1: int, num2: int) -> str:
         raise NotImplementedError("Invalid operation")
 
 
-@hl_client.tool(path="SDK_Agent_Example_Decorators/Random Number")
+@humanloop.tool(path=f"{DIRECTORY}/Random Number")
 def pick_random_number():
     """Pick a random number between 1 and 100."""
     return random.randint(1, 100)
 
 
-@hl_client.prompt(
-    path="SDK_Agent_Example_Decorators/Agent Prompt",
+@humanloop.prompt(
+    path=f"{DIRECTORY}/Agent Prompt",
     template=PROMPT_TEMPLATE,
     tools=[
         pick_random_number.json_schema,
         calculator.json_schema,
     ],
 )
-def call_agent(
-    messages: list[str],
-) -> str:
+def call_agent(messages: list[str]) -> str:
     output = client.chat.completions.create(
         model="gpt-4o",
         messages=messages,
@@ -100,12 +103,12 @@ def call_agent(
             else:
                 raise NotImplementedError("Invalid tool call")
 
-            return f"[TOOL CALL] {result}"
+            return f"[TOOL CALL: {tool_call.function.name}] {result}"
 
     return output.choices[0].message.content
 
 
-@hl_client.flow(path="SDK_Agent_Example_Decorators/Agent Flow")
+@humanloop.flow(path=f"{DIRECTORY}/Agent Flow")
 def agent_chat_workflow():
     messages = [
         {
