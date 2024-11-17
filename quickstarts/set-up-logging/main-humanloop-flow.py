@@ -1,0 +1,234 @@
+import os
+import json
+import random
+import datetime
+
+from humanloop import Humanloop
+from openai import OpenAI
+from dotenv import load_dotenv
+
+
+# Load API keys from .env file
+load_dotenv()
+
+
+openai = OpenAI(api_key=os.getenv("OPENAI_KEY"))
+humanloop = Humanloop(
+    api_key=os.getenv("HUMANLOOP_KEY"), base_url="http://0.0.0.0:80/v5"
+)
+flow_log_id = humanloop.flows.log(
+    path="Chatbot Tutorial/Chatbot Conversation",
+    # `flow` versions the Flow File on Humanloop. Changing
+    # this attribute will create a new version of the Flow File
+    flow={
+        # `attributes` can store arbitrary metadata
+        # Use it as the project's manifest
+        "attributes": {
+            "scope": "demo",
+            "title": "Science Chatbot",
+            "tags": ["chatbot", "llm", "customer-support"],
+            "version": "v1",
+        }
+    },
+    start_time=datetime.datetime.now(),
+).id
+
+
+def calculator(operation: str, num1: int, num2: int) -> str:
+    """Do arithmetic operations on two numbers."""
+    if operation == "add":
+        return num1 + num2
+    elif operation == "subtract":
+        return num1 - num2
+    elif operation == "multiply":
+        return num1 * num2
+    elif operation == "divide":
+        return num1 / num2
+    else:
+        raise NotImplementedError("Invalid operation")
+
+
+# Needed for LLM function calling
+CALCULATOR_JSON_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "calculator",
+        "description": "Do arithmetic operations on two numbers.",
+        "parameters": {
+            "type": "object",
+            "required": ["operation", "num1", "num2"],
+            "properties": {
+                "operation": {"type": "string"},
+                "num1": {"type": "integer"},
+                "num2": {"type": "integer"},
+            },
+            "additionalProperties": False,
+        },
+        "strict": True,
+    },
+}
+
+
+def pick_random_number():
+    """Pick a random number between 1 and 100."""
+    return random.randint(1, 100)
+
+
+# Needed for LLM function calling
+PICK_RANDOM_NUMBER_JSON_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "pick_random_number",
+        "description": "Pick a random number between 1 and 100.",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": False,
+        },
+        "strict": True,
+    },
+}
+
+
+TOPICS = ["math", "science"]
+TONE = "groovy 80s surfer dude"
+LLM_HYPERPARAMETERS = {
+    "temperature": 0.7,
+    "max_tokens": 200,
+    "top_p": 1,
+    "stop": "\n\n\n",
+    "presence_penalty": 0.5,
+    "frequency_penalty": 0.5,
+    "seed": 42,
+}
+PROMPT_TEMPLATE = (
+    "You are a helpful assistant knowledgeable on the "
+    "following topics: {topics}. When you reply you "
+    "should use the following tone of voice: {tone}"
+)
+
+
+def call_agent(messages: list[str]) -> str:
+    # Call the LLM model through Humanloop
+    # This will create the Prompt and create a
+    # Log against it
+    llm_response = humanloop.prompts.call(
+        path="Chatbot Tutorial/Chatbot Prompt",
+        messages=messages,
+        tool_choice="auto",
+        # `prompt` versions the Prompt File on Humanloop.
+        # Changing this attribute will create a new version
+        # of the Prompt
+        prompt={
+            "model": "gpt-4o",
+            "provider": "openai",
+            "tools": [
+                CALCULATOR_JSON_SCHEMA["function"],
+                PICK_RANDOM_NUMBER_JSON_SCHEMA["function"],
+            ],
+            "template": [
+                {
+                    "role": "system",
+                    "content": PROMPT_TEMPLATE,
+                }
+            ],
+            **LLM_HYPERPARAMETERS,
+        },
+        inputs={
+            "topics": ", ".join(TOPICS),
+            "tone": TONE,
+        },
+        provider_api_keys={
+            "openai": os.getenv("OPENAI_KEY"),
+        },
+        # Every conversation turn will be nested directly under
+        # the head of the Flow Log's trace
+        trace_parent_id=flow_log_id,
+    )
+
+    # Check if tool calls are present in the output
+    if llm_response.logs[0].output_message.tool_calls:
+        for tool_call in llm_response.logs[0].output_message.tool_calls:
+            arguments = json.loads(tool_call.function.arguments)
+            start_time = datetime.datetime.now()
+            if tool_call.function.name == "calculator":
+                result = calculator(**arguments)
+                # Log the Tool call
+                humanloop.tools.log(
+                    path="Chatbot Tutorial/Calculator",
+                    inputs=arguments,
+                    output=result,
+                    # `tool` versions the Tool. Changing
+                    # this attribute will create a new
+                    # version of the Tool
+                    tool={
+                        "function": CALCULATOR_JSON_SCHEMA["function"],
+                    },
+                    start_time=start_time,
+                    end_time=datetime.datetime.now(),
+                    # Tool Logs will be nested under the Prompt Logs
+                    # in the Flow Log's trace
+                    trace_parent_id=llm_response.id,
+                )
+
+            elif tool_call.function.name == "pick_random_number":
+                result = pick_random_number(**arguments)
+                # Log the Tool call
+                humanloop.tools.log(
+                    # `tool` versions the Tool. Changing
+                    # this attribute will create a new
+                    # version of the Tool
+                    path="Chatbot Tutorial/Pick Random Number",
+                    inputs=arguments,
+                    output=result,
+                    tool={
+                        "function": PICK_RANDOM_NUMBER_JSON_SCHEMA["function"],
+                    },
+                    start_time=start_time,
+                    end_time=datetime.datetime.now(),
+                    # Tool Logs will be nested under the Prompt Logs
+                    # in the Flow Log's trace
+                    trace_parent_id=llm_response.id,
+                )
+
+            else:
+                raise NotImplementedError("Invalid tool call")
+
+            return f"[TOOL CALL] {result}"
+
+    # Otherwise, return the LLM response
+    return llm_response.logs[0].output_message.content
+
+
+if __name__ == "__main__":
+    messages = [
+        {
+            "role": "system",
+            "content": PROMPT_TEMPLATE.format(
+                topics=", ".join(TOPICS),
+                tone=TONE,
+            ),
+        }
+    ]
+    while True:
+        user_input = input("You: ")
+        input_output = [user_input]
+        if user_input == "exit":
+            # Mark the Flow Log as completed.
+            # No more Logs will be added to it
+            humanloop.flows.update_log(
+                log_id=flow_log_id,
+                trace_status="complete",
+                # A Flow Log can have inputs and outputs like
+                # all Logs on Humanloop. For this tutorial
+                # we don't have inputs and outputs to log
+                # so we'll use an empty string
+                output="",
+            )
+            # Exit the demo
+            break
+        messages.append({"role": "user", "content": user_input})
+        response = call_agent(messages=messages)
+        messages.append({"role": "assistant", "content": str(response)})
+        print(f"Agent: {response}")
