@@ -40,8 +40,7 @@ APP_NAME = "agentic-rag-demo"
 
 # Define all the parameters for your pipeline
 MODEL = "gpt-4o-mini"
-# Define your Prompt template that contains variables for answer options required by this example
-# and instructions for tool use
+# Define your Prompt template. It contains variables for answer options. It also contains instructions for tool use.
 PROMPT_TEMPLATE = [
     {
         "role": "system",
@@ -114,9 +113,8 @@ TOOL_SCHEMAS = [
     }
 ]
 
-# Implement the tools themselves (these are mock implementations, replace with your own)
 
-
+# Implement the mock tools themselves
 def retrieve_knowledge(query: str) -> str:
     """Retrieve most relevant document from the vector db (Chroma) for the question."""
     print("RETRIEVER:\n", query)
