@@ -36,7 +36,7 @@ collection.add(
 )
 print("Knowledge base populated")
 
-APP_NAME = "agentic-rag-demo"
+APP_NAME = "Agentic RAG"
 
 # Define all the parameters for your pipeline
 MODEL = "gpt-4o-mini"
@@ -257,6 +257,7 @@ def ask_question(question: str, **inputs):
 
 if __name__ == "__main__":
 
+    # First just test the logging by asking a question
     datapoint = {
         "inputs": {
             "question": "A 46-year-old man is brought to the emergency department for evaluation of altered mental status. He was found on the floor in front of his apartment. He is somnolent but responsive when aroused. His pulse is 64\/min, respiratory rate is 15\/min, and blood pressure is 120\/75 mm Hg. On physical examination, an alcoholic smell and slurred speech are noted. Neurological exam shows diminished deep tendon reflexes bilaterally and an ataxic gait. His pupils are normal. Blood alcohol concentration is 0.04%. An ECG shows no abnormalities. Which of the following is the most likely cause of this patient's symptoms?",
@@ -269,3 +270,45 @@ if __name__ == "__main__":
     }
 
     ask_question(**datapoint["inputs"])
+
+    # We can use our evaluations.run(...) utility to evaluate the performance of the pipeline
+
+    # First we need a dataset
+    def upload_dataset_to_humanloop():
+        df = pd.read_json("../../assets/datapoints.jsonl", lines=True)
+
+        datapoints = [row.to_dict() for _i, row in df.iterrows()][0:20]
+        return hl.datasets.upsert(
+            path="Evals demo/MedQA test",
+            datapoints=datapoints,
+            commit_message=f"Added {len(datapoints)} datapoints from MedQA test dataset.",
+        )
+
+
+    dataset = upload_dataset_to_humanloop()
+
+    checks = hl.evaluations.run(
+        name="Initial experiments",
+        # What is being Evaluated
+        file={
+            "path": f"{APP_NAME}/Medqa flow",
+            "callable": ask_question,
+            # Bump the version when you make changes to the pipeline
+            "version": {
+                "version": "0.1.0",
+                "description": "Initial version of the agentic RAG pipeline.",
+                "template": PROMPT_TEMPLATE,
+                "model": MODEL,
+                "tools": TOOL_SCHEMAS
+            },
+        },
+        # Can also use `id`, or include datapoints directly here
+        dataset={"path": dataset.path},
+        # Replace with your own Evaluators
+        evaluators=[
+            {"path": "Example Evaluators/Code/Exact match"},
+            {"path": "Example Evaluators/Code/Levenshtein"},
+            {"path": "Example Evaluators/Code/Latency"},
+        ],
+    )
+
