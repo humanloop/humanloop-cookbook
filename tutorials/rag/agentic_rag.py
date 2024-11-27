@@ -1,5 +1,5 @@
 """
-This script demonstrates how to build a more agentic RAG pipeline using Humanloop and OpenAI's API.
+This script demonstrates how to build an agentic RAG pipeline using Humanloop and OpenAI's API.
 
 The model can choose to call the retrieval tool, or instead ask for clarification from the user.
 
@@ -211,9 +211,8 @@ def ask_question(question: str, **inputs):
         steps += 1
         response = call_model(inputs=inputs, messages=messages, trace_id=trace.id)
         messages.append(response)
-        # process the tool calls in your system
+        # Process the tool calls in your system
         if response["tool_calls"]:
-            # Call wikipedia to get up-to-date information
             for tool_call in response["tool_calls"]:
                 tool_args = json.loads(tool_call["function"]["arguments"])
                 tool_name = tool_call["function"]["name"]
