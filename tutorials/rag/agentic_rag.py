@@ -269,3 +269,12 @@ if __name__ == "__main__":
     }
 
     ask_question(**datapoint["inputs"])
+
+
+    # Then to run Evaluation, you can use the following code:
+
+    checks = hl.evaluators.run(
+        path=f"{APP_NAME}/medqa-flow",
+        evaluator=hl.evaluators.JUDGE_EVALUATOR,
+        inputs=datapoint["inputs"],
+    )
