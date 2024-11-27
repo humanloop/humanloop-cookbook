@@ -114,7 +114,7 @@ TOOL_SCHEMAS = [
 ]
 
 
-# Implement the mock tools themselves
+# Implement the mock tools associated to the tool schemas
 def retrieve_knowledge(query: str) -> str:
     """Retrieve most relevant document from the vector db (Chroma) for the question."""
     print("RETRIEVER:\n", query)
@@ -157,7 +157,7 @@ def call_model(inputs: dict[str, str], messages: list[dict], trace_id: str) -> d
     )
     # Log to Humanloop
     hl.prompts.log(
-        path=f"{APP_NAME}/medqa-answer",
+        path=f"{APP_NAME}/MedQA answer",
         prompt={
             "model": MODEL,
             "template": PROMPT_TEMPLATE,
@@ -184,7 +184,7 @@ def ask_question(question: str, **inputs):
 
     # Open up the trace on Humanloop
     trace = hl.flows.log(
-        path=f"{APP_NAME}/medqa-flow",
+        path=f"{APP_NAME}/Medqa flow",
         flow={
             # Optionally define attributes that uniquely determine your app so HL can version to Flow
             "attributes": {
@@ -269,12 +269,3 @@ if __name__ == "__main__":
     }
 
     ask_question(**datapoint["inputs"])
-
-
-    # Then to run Evaluation, you can use the following code:
-
-    checks = hl.evaluators.run(
-        path=f"{APP_NAME}/medqa-flow",
-        evaluator=hl.evaluators.JUDGE_EVALUATOR,
-        inputs=datapoint["inputs"],
-    )
