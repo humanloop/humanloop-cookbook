@@ -195,7 +195,7 @@ def ask_question(question: str, **inputs):
                 "tools": TOOL_SCHEMAS,
             }
         },
-        inputs=inputs,
+        inputs={"question": question, **inputs},
         start_time=datetime.now(),
     )
     # Initialize the messages with the question
@@ -268,8 +268,8 @@ if __name__ == "__main__":
             "option_E": "Benzodiazepine intoxication\n\""},
         "target": {"output": "Benzodiazepine intoxication\n\""}
     }
-
-    ask_question(**datapoint["inputs"])
+    question = datapoint["inputs"].pop("question")
+    ask_question(question, **datapoint["inputs"])
 
     # We can use our evaluations.run(...) utility to evaluate the performance of the pipeline
 
