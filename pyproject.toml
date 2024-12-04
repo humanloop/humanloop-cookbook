@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Peter Hayes <ucabpnh@ucl.ac.uk>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -13,7 +14,7 @@ openai = "^1.42.0"
 pandas = "^2.2.2"
 pyarrow = "^17.0.0"
 prettytable = "^3.11.0"
-humanloop = "^0.8.13"
+humanloop = "0.8.18"
 
 [build-system]
 requires = ["poetry-core"]
