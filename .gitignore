@@ -1,0 +1,8 @@
+# Typescript cookbook projects
+node_modules/
+dist/
+.yalc/
+yalc.lock
+.env
+.vscode
+.DS_Store

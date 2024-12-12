@@ -13,7 +13,10 @@ openai = "^1.42.0"
 pandas = "^2.2.2"
 pyarrow = "^17.0.0"
 prettytable = "^3.11.0"
-humanloop = "^0.8.13"
+python-dotenv = "^1.0.1"
+protobuf = "<=3.20"
+humanloop = "0.8.17"
+wikipedia = "^1.4.0"
 
 [build-system]
 requires = ["poetry-core"]
