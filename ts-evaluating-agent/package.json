@@ -1,0 +1,25 @@
+{
+  "name": "ts-evaluating-agent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "chromadb": "^1.9.4",
+    "chromadb-default-embed": "^2.13.2",
+    "dotenv": "^16.4.7",
+    "humanloop": "file:.yalc/humanloop",
+    "nodejs-polars": "^0.17.0",
+    "openai": "^4.76.0",
+    "string-template": "^1.0.0",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.10",
+    "@types/string-template": "^1.0.6",
+    "ts-node": "^10.9.2"
+  },
+  "scripts": {
+    "callables": "node --no-warnings=ExperimentalWarning --loader ts-node/esm callables.ts"
+  }
+}

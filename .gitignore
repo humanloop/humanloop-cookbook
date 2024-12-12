@@ -1,2 +1,10 @@
-**/.env
-**/.DS_Store
+# Typescript cookbook projects
+node_modules/
+dist/
+.yalc/
+yalc.lock
+
+# Config files
+.DS_Store
+.vscode
+.env
