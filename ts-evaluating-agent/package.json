@@ -8,9 +8,12 @@
     "chromadb": "^1.9.4",
     "chromadb-default-embed": "^2.13.2",
     "dotenv": "^16.4.7",
+    "fastest-levenshtein": "^1.0.16",
     "humanloop": "file:.yalc/humanloop",
     "nodejs-polars": "^0.17.0",
     "openai": "^4.76.0",
+    "p-map": "^7.0.3",
+    "stable-hash": "^0.0.4",
     "string-template": "^1.0.0",
     "typescript": "^5.7.2"
   },

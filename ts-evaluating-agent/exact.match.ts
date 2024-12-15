@@ -1,7 +1,6 @@
 import { Humanloop } from "humanloop";
 
 /* Extracts answer from generation.
-
 Handles a generation that if separated by "---" with the answer being the first part.
 Also handles a generation that starts with "```\n" and removes it.
 */

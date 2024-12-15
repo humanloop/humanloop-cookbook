@@ -1,7 +1,6 @@
 import { HumanloopClient } from "humanloop";
 import * as dotenv from "dotenv";
 import * as readline from "readline/promises";
-import { FunctionDefinition } from "openai/resources";
 import OpenAI from "openai";
 
 dotenv.config({
@@ -12,8 +11,10 @@ const humanloop = new HumanloopClient(
   {
     apiKey: process.env.HUMANLOOP_API_KEY || "",
   },
+  // User passes modules to instrument
   OpenAI
 );
+
 const openAIClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const calculator = humanloop.tool({
@@ -34,6 +35,8 @@ const calculator = humanloop.tool({
         throw new Error("Invalid operation");
     }
   },
+  // User must pass the JSON schema
+  // Unlike Python, we cannot infer this in TS
   toolKernel: {
     function: {
       name: "calculator",
