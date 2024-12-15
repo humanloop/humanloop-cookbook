@@ -13,7 +13,7 @@ Options:
 
 Here is some retrieved information that might be helpful.
 Retrieved data:
-{retrieved_data}
+{retrievedData}
 
 ---
 
