@@ -1,7 +1,7 @@
 # Typescript cookbook projects
 node_modules/
 dist/
-.yalc/
+**/.yalc
 yalc.lock
 
 # Config files
