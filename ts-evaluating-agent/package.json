@@ -23,6 +23,8 @@
     "ts-node": "^10.9.2"
   },
   "scripts": {
-    "callables": "node --no-warnings=ExperimentalWarning --loader ts-node/esm callables.ts"
+    "callables": "node --no-warnings=ExperimentalWarning --loader ts-node/esm callables.ts",
+    "decorators": "node --no-warnings=ExperimentalWarning --loader ts-node/esm decorators.ts",
+    "mixed": "node --no-warnings=ExperimentalWarning --loader ts-node/esm mixed.ts"
   }
 }

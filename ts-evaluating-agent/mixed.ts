@@ -99,7 +99,23 @@ async function entrypoint(inputs: {
     messages: messages as ChatCompletionMessage[],
   });
 
-  return chatCompletion.choices[0].message.content || "";
+  const output = chatCompletion.choices[0].message.content || "";
+
+  await humanloop.flows.log({
+    path: `${DIRECTORY}/MedQA Answer Flow`,
+    flow: {
+      attributes: {
+        prompt: {
+          model: "gpt-4o",
+          environment: "evaluation",
+        },
+      },
+    },
+    inputs: inputs,
+    output: output,
+  });
+
+  return output;
 }
 
 // 7. Run evaluation
@@ -125,7 +141,7 @@ humanloop.evaluations.run(
     path: `${DIRECTORY}/Dataset`,
   },
   // Evaluation Name
-  "MedQA Evaluation TS Callables",
+  "MedQA Evaluation TS Mixed",
   // Evaluators
   [
     {
