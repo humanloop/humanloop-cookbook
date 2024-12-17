@@ -69,38 +69,49 @@ async function retrievalTool(question: string) {
   return retrievedDoc;
 }
 
-async function entrypoint(inputs: {
-  question: string;
-  option_A: string;
-  option_B: string;
-  option_C: string;
-  option_D: string;
-  option_E: string;
-}): Promise<string> {
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY as string });
+const entrypoint = humanloop.flow({
+  callable: async (inputs: {
+    question: string;
+    option_A: string;
+    option_B: string;
+    option_C: string;
+    option_D: string;
+    option_E: string;
+  }): Promise<string> => {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY as string });
 
-  const retrievedData = await retrievalTool(inputs.question);
+    const retrievedData = await retrievalTool(inputs.question);
 
-  const templateArgs = {
-    ...inputs,
-    retrievedData,
-  };
+    const templateArgs = {
+      ...inputs,
+      retrievedData,
+    };
 
-  const messages = [
-    {
-      role: "user",
-      content: format(TEMPLATE, templateArgs),
+    const messages = [
+      {
+        role: "user",
+        content: format(TEMPLATE, templateArgs),
+      },
+    ];
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-4o",
+      temperature: 0,
+      messages: messages as ChatCompletionMessage[],
+    });
+
+    return chatCompletion.choices[0].message.content || "";
+  },
+  path: `${DIRECTORY}/MedQA Answer Flow`,
+  flowKernel: {
+    attributes: {
+      prompt: {
+        model: "gpt-4o",
+        environment: "evaluation",
+      },
     },
-  ];
-
-  const chatCompletion = await openai.chat.completions.create({
-    model: "gpt-4o",
-    temperature: 0,
-    messages: messages as ChatCompletionMessage[],
-  });
-
-  return chatCompletion.choices[0].message.content || "";
-}
+  },
+});
 
 // 7. Run evaluation
 
@@ -112,7 +123,7 @@ humanloop.evaluations.run(
     version: {
       attributes: {
         prompt: {
-          model: "gpt-4o",
+          model: "meow",
           environment: "evaluation",
         },
       },
@@ -125,7 +136,7 @@ humanloop.evaluations.run(
     path: `${DIRECTORY}/Dataset`,
   },
   // Evaluation Name
-  "MedQA Evaluation TS Callables",
+  "MedQA Evaluation TS Decorators",
   // Evaluators
   [
     {
