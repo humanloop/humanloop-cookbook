@@ -1117,13 +1117,22 @@ pyreadline3 = {version = "*", markers = "sys_platform == \"win32\" and python_ve
 
 [[package]]
 name = "humanloop"
+<<<<<<< Updated upstream
 version = "0.8.13"
+=======
+version = "0.8.17"
+>>>>>>> Stashed changes
 description = ""
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
+<<<<<<< Updated upstream
     {file = "humanloop-0.8.13-py3-none-any.whl", hash = "sha256:d2584211f18af9d0b1ad1e0e34e3b235363730a022df08f25d906d54d835fb73"},
     {file = "humanloop-0.8.13.tar.gz", hash = "sha256:3e34228b7e0c0b4cb4fb1dadee3a34bf7b369e9f57313fb17856bd6b4713860b"},
+=======
+    {file = "humanloop-0.8.17-py3-none-any.whl", hash = "sha256:853ef65bac69241310981d8054456ae85574c95f808887522371e654572373cb"},
+    {file = "humanloop-0.8.17.tar.gz", hash = "sha256:acaf450e2d3f2aa9eb979988717e4a1c713689216cfeb16498262c7008ebb021"},
+>>>>>>> Stashed changes
 ]
 
 [package.dependencies]
@@ -2541,6 +2550,10 @@ files = [
 
 [package.dependencies]
 numpy = [
+<<<<<<< Updated upstream
+=======
+    {version = ">=1.22.4", markers = "python_version < \"3.11\""},
+>>>>>>> Stashed changes
     {version = ">=1.23.2", markers = "python_version == \"3.11\""},
     {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
 ]
@@ -4286,6 +4299,20 @@ files = [
 ]
 
 [[package]]
+name = "wikipedia"
+version = "1.4.0"
+description = "Wikipedia API for Python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "wikipedia-1.4.0.tar.gz", hash = "sha256:db0fad1829fdd441b1852306e9856398204dc0786d2996dd2e0c8bb8e26133b2"},
+]
+
+[package.dependencies]
+beautifulsoup4 = "*"
+requests = ">=2.0.0,<3.0.0"
+
+[[package]]
 name = "wrapt"
 version = "1.16.0"
 description = "Module for decorators, wrappers and monkey patching."
@@ -4385,5 +4412,10 @@ type = ["pytest-mypy"]
 
 [metadata]
 lock-version = "2.0"
+<<<<<<< Updated upstream
 python-versions = "^3.11"
 content-hash = "7fb656d25eb805de78c13f158f629274d44089a58c1fd95857c0ac9fa0f092b4"
+=======
+python-versions = ">=3.9,<4"
+content-hash = "b09103ca0cecb55f5d305133ba6ab9871a63420e4686adc640e27ff44e0d3c82"
+>>>>>>> Stashed changes
