@@ -9,7 +9,7 @@
     "chromadb-default-embed": "^2.13.2",
     "dotenv": "^16.4.7",
     "fastest-levenshtein": "^1.0.16",
-    "humanloop": "0.8.9-beta2",
+    "humanloop": "0.8.9-beta3",
     "nodejs-polars": "^0.17.0",
     "openai": "^4.76.0",
     "p-map": "^7.0.3",

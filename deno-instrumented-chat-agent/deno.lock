@@ -69,6 +69,7 @@
       "dependencies": [
         "npm:@types/node@^18.11.10",
         "npm:dotenv@^16.4.7",
+        "npm:humanloop@0.8.9-beta3",
         "npm:openai@^4.76.0",
         "npm:ts-node@^10.9.2",
         "npm:typescript@^5.7.2"

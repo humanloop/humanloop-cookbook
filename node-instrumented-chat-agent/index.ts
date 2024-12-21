@@ -1,7 +1,8 @@
-import { HumanloopClient } from "./$node_modules/humanloop/index.js";
-import * as dotenv from "./$node_modules/dotenv/lib/main.js";
+import * as dotenv from "dotenv";
 import * as readline from "readline/promises";
-import OpenAI from "./$node_modules/openai/index.mjs";
+
+import { HumanloopClient } from "humanloop";
+import OpenAI from "openai";
 
 type MessageType = { content: string; role: "system" | "user" | "assistant" };
 
@@ -71,7 +72,7 @@ const calculator = humanloop.tool({
       },
     },
   },
-  path: "Andrei QA/TS Utilities/Calculator",
+  path: "TS Utilities/Calculator",
 });
 
 const callModel = (messages: MessageType[]) =>
@@ -103,7 +104,7 @@ const callModel = (messages: MessageType[]) =>
 
       return output.choices[0].message.content || "";
     },
-    path: "Andrei QA/TS Utilities Stream/Call Model",
+    path: "TS Utilities/Call Model",
   })(undefined, messages);
 
 const conversation = () =>
@@ -129,7 +130,7 @@ const conversation = () =>
         messages.push({ role: "user", content: userInput });
 
         const response = await callModel(messages);
-        console.log("Assistant: ", response);
+        console.log("Assistant:", response);
 
         messages.push({
           role: "assistant",
@@ -137,7 +138,7 @@ const conversation = () =>
         });
       }
     },
-    path: "Andrei QA/TS Utilities Stream/Conversation",
+    path: "TS Utilities/Conversation",
   })(undefined, undefined);
 
 await conversation();

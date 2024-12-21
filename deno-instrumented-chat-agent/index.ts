@@ -2,7 +2,7 @@ import { HumanloopClient } from "humanloop";
 import * as dotenv from "https://deno.land/std@0.224.0/dotenv/mod.ts";
 import OpenAI from "https://deno.land/x/openai@v4.69.0/mod.ts";
 
-import process from "node:process";
+type MessageType = { content: string; role: "system" | "user" | "assistant" };
 
 const env = await dotenv.load({
   envPath: ".env",
@@ -19,7 +19,15 @@ const openAIClient = new OpenAI({
 });
 
 const calculator = humanloop.tool({
-  callable: (operation: string, num1: number, num2: number) => {
+  callable: ({
+    operation,
+    num1,
+    num2,
+  }: {
+    operation: string;
+    num1: number;
+    num2: number;
+  }) => {
     switch (operation) {
       case "add":
         return num1 + num2;
@@ -36,7 +44,7 @@ const calculator = humanloop.tool({
         throw new Error("Invalid operation");
     }
   },
-  toolKernel: {
+  version: {
     function: {
       name: "calculator",
       description: "Perform arithmetic operations on two numbers",
@@ -66,63 +74,61 @@ const calculator = humanloop.tool({
   path: "Andrei QA/TS Utilities/Calculator",
 });
 
-const callModel = humanloop.prompt({
-  callable: async (
-    messages: { content: string; role: "system" | "user" | "assistant" }[]
-  ) => {
-    const output = await openAIClient.chat.completions.create({
-      model: "gpt-4o",
-      temperature: 0.8,
-      messages: messages,
-      tools: [
-        {
-          type: "function",
-          function: calculator.jsonSchema,
-        } as OpenAI.ChatCompletionTool,
-      ],
-    });
+const callModel = async (messages: MessageType[]) =>
+  humanloop.prompt({
+    callable: async (inputs: any, messages: MessageType[]) => {
+      const output = await openAIClient.chat.completions.create({
+        model: "gpt-4o",
+        temperature: 0.8,
+        messages: messages,
+        tools: [
+          {
+            type: "function",
+            function: calculator.jsonSchema,
+          } as OpenAI.ChatCompletionTool,
+        ],
+      });
 
-    if (output.choices[0].message.tool_calls) {
-      for (const toolCall of output.choices[0].message.tool_calls) {
-        const toolCallArgs = JSON.parse(toolCall.function.arguments);
-        const result = await calculator(
-          toolCallArgs.operation,
-          toolCallArgs.num1,
-          toolCallArgs.num2
-        );
-        return `[TOOL CALL] ${result}`;
+      if (output.choices[0].message.tool_calls) {
+        for (const toolCall of output.choices[0].message.tool_calls) {
+          const toolCallArgs = JSON.parse(toolCall.function.arguments);
+          const result = await calculator({
+            operation: toolCallArgs.operation,
+            num1: toolCallArgs.num1,
+            num2: toolCallArgs.num2,
+          });
+          return `[TOOL CALL] ${result}`;
+        }
       }
-    }
 
-    return output.choices[0].message.content || "";
-  },
-  path: "Andrei QA/TS Utilities/Call Model",
-});
+      return output.choices[0].message.content || "";
+    },
+    path: "TS Utilities/Call Model",
+  })(undefined, messages);
 
-const conversation = humanloop.flow({
-  callable: async () => {
-    const messages = [
-      {
+const conversation = async () =>
+  humanloop.flow({
+    callable: async (inputs: any, messages: MessageType[]) => {
+      messages.push({
         role: "system",
         content:
           "You are a groovy 80s surfer dude helping with math and science.",
-      },
-    ];
-    while (true) {
-      const userInput = prompt("You: ");
-      if (userInput === "exit") {
-        break;
-      }
-      messages.push({ role: "user", content: userInput || "" });
-      const response = await callModel(messages);
-      messages.push({
-        role: "assistant",
-        content: response,
       });
-      console.log("Assistant:", response);
-    }
-  },
-  path: "Andrei QA/TS Utilities/Conversation",
-});
+      while (true) {
+        const userInput = prompt("You: ");
+        if (userInput === "exit") {
+          break;
+        }
+        messages.push({ role: "user", content: userInput || "" });
+        const response = await callModel(messages);
+        messages.push({
+          role: "assistant",
+          content: response,
+        });
+        console.log("Assistant:", response);
+      }
+    },
+    path: "Andrei QA/TS Utilities/Conversation",
+  })(undefined, []);
 
 await conversation();
