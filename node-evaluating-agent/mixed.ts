@@ -9,7 +9,7 @@ import * as dotenv from "dotenv";
 
 import { levenshtein } from "./levenshtein.js";
 import { exactMatch } from "./exact.match.js";
-import { ChatCompletionMessage } from "openai/resources";
+import { ChatCompletionMessage } from "openai/resources/index.js";
 
 // 0: Load the environment variables
 dotenv.config({
@@ -99,7 +99,23 @@ async function entrypoint(inputs: {
     messages: messages as ChatCompletionMessage[],
   });
 
-  return chatCompletion.choices[0].message.content || "";
+  const output = chatCompletion.choices[0].message.content || "";
+
+  await humanloop.flows.log({
+    path: `${DIRECTORY}/MedQA Answer Flow`,
+    flow: {
+      attributes: {
+        prompt: {
+          model: "gpt-4o",
+          environment: "evaluation",
+        },
+      },
+    },
+    inputs: inputs,
+    output: output,
+  });
+
+  return output;
 }
 
 // 7. Run evaluation
@@ -125,7 +141,7 @@ humanloop.evaluations.run(
     path: `${DIRECTORY}/Dataset`,
   },
   // Evaluation Name
-  "MedQA Evaluation TS Callables",
+  "MedQA Evaluation TS Mixed",
   // Evaluators
   [
     {

@@ -1,7 +1,7 @@
-import { HumanloopClient } from "humanloop";
-import * as dotenv from "dotenv";
+import { HumanloopClient } from "./$node_modules/humanloop/index.js";
+import * as dotenv from "./$node_modules/dotenv/lib/main.js";
 import * as readline from "readline/promises";
-import OpenAI from "openai";
+import OpenAI from "./$node_modules/openai/index.mjs";
 
 type MessageType = { content: string; role: "system" | "user" | "assistant" };
 

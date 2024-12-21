@@ -9,7 +9,7 @@ import * as dotenv from "dotenv";
 
 import { levenshtein } from "./levenshtein.js";
 import { exactMatch } from "./exact.match.js";
-import { ChatCompletionMessage } from "openai/resources";
+import { ChatCompletionMessage } from "openai/resources/index.js";
 
 // 0: Load the environment variables
 dotenv.config({
