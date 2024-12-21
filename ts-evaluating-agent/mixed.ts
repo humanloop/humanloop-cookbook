@@ -11,6 +11,7 @@ import { levenshtein } from "./levenshtein.js";
 import { exactMatch } from "./exact.match.js";
 import { ChatCompletionMessage } from "openai/resources";
 
+// 0: Load the environment variables
 dotenv.config({
   path: "./.env",
 });
@@ -24,7 +25,6 @@ if (process.env.DIRECTORY_PREFIX) {
 // 2. Instantiate Humanloop client
 const humanloop = new HumanloopClient({
   apiKey: process.env.HUMANLOOP_API_KEY as string,
-  environment: "http://0.0.0.0:80/v5",
 });
 
 // 3. Instantiate vector database
