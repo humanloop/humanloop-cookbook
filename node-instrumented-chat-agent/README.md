@@ -4,8 +4,8 @@ This demo project is a basic chat agent project instrumented with Humanloop. The
 
 ### Setup
 
-* Run `yarn` in the project folder
+* Run `yarn` in the project folder.
 
-* Add your **HUMANLOOP_API_KEY** and **OPENAI_API_KEY** in an `.env` file in the same directory
+* Add your **HUMANLOOP_API_KEY** and **OPENAI_API_KEY** in an `.env` file in the same directory.
 
-* `yarn start` 
+* `yarn start` You can now have a conversation with the agent. Type `exit` when you're done. The result should be available to Humanloop.
