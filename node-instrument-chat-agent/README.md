@@ -1,4 +1,4 @@
-# node-instrumented-chat-agent
+# node-instrument-chat-agent
 
 This demo project is a basic chat agent project instrumented with Humanloop. The instrumentation is done through the Typescript SDK decorators, which version and log to Files in your workspace automatically.
 
