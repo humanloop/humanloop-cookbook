@@ -17,7 +17,7 @@ dotenv.config({
 });
 
 // 1. Setup
-let DIRECTORY = "SDK/Callables Evaluation";
+let DIRECTORY = "Callables Evaluation";
 if (process.env.DIRECTORY_PREFIX) {
   DIRECTORY = process.env.DIRECTORY_PREFIX + "/" + DIRECTORY;
 }
