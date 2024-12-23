@@ -2,11 +2,13 @@
 
 This demo project shows you to evaluate a RAG app for medical Q&A. It uses the Typescript SDK's `evaluations.run` utility to benchmark the performance of the RAG app on a slice of the MedQA dataset and with two evaluators: `Levenshtein Distance` and `Exact Match`.
 
-### Setup
+## Setup
 
 * Run `yarn` in the project folder.
 
 * Add your **HUMANLOOP_API_KEY** and **OPENAI_API_KEY** in an `.env` file in the same directory.
+
+## Running
 
 * There are three different setups you can now try:
 
