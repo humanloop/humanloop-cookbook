@@ -18,6 +18,6 @@ This demo project shows you to evaluate a RAG app for medical Q&A. It uses the T
 
   * `yarn callables` is the one with the least setup: the evaluated file is defined by function living in your codebase. The dataset and Evaluators are also present locally. This is a good example if you want to evaluate your AI project with minimal changes or Humanloop setup.
 
-  * `yarn decorators` The callable passed to `run()` is instrumented through an SDK logging utility.
+  * `yarn utilities` The callable passed to `run()` is instrumented through an SDK logging utility.
 
-  * `yarn mixed` If your project has integrated Humanloop through explicit logging steps, `evaluations.run(...)` will work as expected.
+  * `yarn mixed` If your project has integrated Humanloop through explicit logging calls to API, `evaluations.run(...)` will not create logs twice.

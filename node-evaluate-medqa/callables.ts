@@ -47,7 +47,7 @@ const datapoints = pl
   })
   .rows()
   // This will return an array of tuples where each column contains the columns
-  .slice(0, 3)
+  .slice(0, 20)
   .map((row) => {
     return {
       inputs: row[0],
@@ -59,7 +59,6 @@ const datapoints = pl
 const TEMPLATE = fs.readFileSync("./prompt.txt", "utf8");
 
 // 6. Define RAG + Flow
-
 async function retrievalTool(question: string) {
   const response = await collection.query({
     nResults: 1,
@@ -104,9 +103,8 @@ async function entrypoint(inputs: {
 
 // 7. Run evaluation
 
-humanloop.evaluations.run(
-  // File
-  {
+humanloop.evaluations.run({
+  file: {
     path: `${DIRECTORY}/MedQA Answer Flow`,
     callable: entrypoint,
     version: {
@@ -119,15 +117,12 @@ humanloop.evaluations.run(
     },
     type: "flow",
   },
-  // Dataset
-  {
+  dataset: {
     datapoints,
     path: `${DIRECTORY}/Dataset`,
   },
-  // Evaluation Name
-  "MedQA Evaluation TS Callables",
-  // Evaluators
-  [
+  name: "MedQA Evaluation TS Callables",
+  evaluators: [
     {
       path: `${DIRECTORY}/Levenshtein`,
       argsType: "target_required",
@@ -140,5 +135,5 @@ humanloop.evaluations.run(
       returnType: "boolean",
       callable: exactMatch,
     },
-  ]
-);
+  ],
+});

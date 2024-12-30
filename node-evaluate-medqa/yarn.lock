@@ -1505,10 +1505,10 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
-humanloop@0.8.9-beta2:
-  version "0.8.9-beta2"
-  resolved "https://registry.yarnpkg.com/humanloop/-/humanloop-0.8.9-beta2.tgz#afc7f9e45b64db5cb75d5fc40c1aed74540a30f8"
-  integrity sha512-vmXTjTZpq1rfZ7q75Glh4ObhMbzMW1yasAn+4zrN+O6bODZQ47oc0AwD4qV+gtHjiAWSjS98wccLTB86jvGV8Q==
+humanloop@0.8.9-beta5:
+  version "0.8.9-beta5"
+  resolved "https://registry.yarnpkg.com/humanloop/-/humanloop-0.8.9-beta5.tgz#872b151f33a34816dcb7b33286289a6d6b8b9fb0"
+  integrity sha512-G6oikoznQ5y8vsgRXFauGeM7K7nD8VM33bcDuSV4Q6s+2Vf3ryZlwxfnMZQYCPeqbu8NykCpKKFoATfGfOhrLA==
   dependencies:
     "@opentelemetry/api" "1.9.0"
     "@opentelemetry/auto-instrumentations-node" "0.53.0"
