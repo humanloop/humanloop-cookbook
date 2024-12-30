@@ -59,7 +59,6 @@ const datapoints = pl
 const TEMPLATE = fs.readFileSync("./prompt.txt", "utf8");
 
 // 6. Define RAG + Flow
-
 async function retrievalTool(question: string) {
   const response = await collection.query({
     nResults: 1,

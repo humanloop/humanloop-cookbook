@@ -4,16 +4,20 @@ This demo project shows you to evaluate a RAG app for medical Q&A. It uses the T
 
 ## Setup
 
-* Run `yarn` in the project folder.
+* The project relies on a local instance of the Chroma vector database server running. You can use Docker as instructed in the code comments or provide your own instance if preferred.
+
+* Clone the cookbook and `cd` into this directory.
+
+* Run `yarn` in the project folder to install dependencies.
 
 * Add your **HUMANLOOP_API_KEY** and **OPENAI_API_KEY** in an `.env` file in the same directory.
 
 ## Running
 
-* There are three different setups you can now try:
+* There are three different setups you can now try, depending on how you've integrated or plan to integrate Humanloop in your project:
 
   * `yarn callables` is the one with the least setup: the evaluated file is defined by function living in your codebase. The dataset and Evaluators are also present locally. This is a good example if you want to evaluate your AI project with minimal changes or Humanloop setup.
 
-  * `yarn decorators` The callable passed to `run()` is wrapped in a Humanloop Flow decorator. If you've already integrated Humanloop in your project, you can pass the same function used in production to your evaluation setup.
+  * `yarn decorators` The callable passed to `run()` is instrumented through an SDK logging utility.
 
   * `yarn mixed` If your project has integrated Humanloop through explicit logging steps, `evaluations.run(...)` will work as expected.
