@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "python-instrument-chat-agent"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+openai = "^1.59.3"
+wikipedia = "^1.4.0"
+python-dotenv = "^1.0.1"
+humanloop = {path = "/Users/andreibratu/Desktop/humanloop-docs/fern/apis/v5/.preview/fern-python-sdk", develop = true}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
