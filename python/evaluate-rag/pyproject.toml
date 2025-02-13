@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "humanloop-cookbook"
+version = "0.1.0"
+description = ""
+authors = ["Peter Hayes <ucabpnh@ucl.ac.uk>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+jupyter = "^1.0.0"
+chromadb = "^0.5.5"
+openai = "^1.42.0"
+pandas = "^2.2.2"
+pyarrow = "^17.0.0"
+prettytable = "^3.11.0"
+python-dotenv = "^1.0.1"
+protobuf = "<=3.20"
+humanloop = "0.8.24"
+wikipedia = "^1.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
